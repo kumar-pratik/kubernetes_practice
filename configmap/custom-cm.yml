@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  email: mishrapratik977@gmail.com
+  custom.conf: |-
+    name: custom
+    msg: "This is a msg from conf map"
+    sender: Pratik
+kind: ConfigMap
+metadata:
+  name: conf-map-1

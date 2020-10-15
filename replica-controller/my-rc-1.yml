@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc1
+spec:
+  replicas: 2
+  selector:
+    image: nginx
+  template:
+    metadata:
+      labels:
+        image: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.17.4
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80

@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+spec:
+  volumes:
+  - name: config
+    configMap:
+      name: conf-map-1
+      items:
+      - key: custom.conf
+        path: conf
+  containers:
+  - name: myapp
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    volumeMounts:
+    - mountPath: /custom
+      name: config
+
+    env:
+    - name: EMAIL
+      valueFrom:
+        configMapKeyRef:
+          key: email
+          name: conf-map-1
+    # - name: MY_MSG
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       key: custom.conf.msg
+    #       name: conf-map-1
+    # - name: MSG_SENDER
+    #   valueFrom:
+    #     configMapkeyRef:
+    #       key: custom.conf.sender
+    #       name: conf-map-1
+    command: ['sh', '-c', 'printenv']
+    restartPolicy: Never

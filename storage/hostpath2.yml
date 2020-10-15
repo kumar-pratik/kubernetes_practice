@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+spec:
+  volumes:
+  - name: shared-volume
+    hostPath:
+      path: /home/files/
+      type: DirectoryOrCreate
+
+
+  containers:
+  - name: myapp
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+    - name: shared-volume
+      mountPath: /home
+    command: ['sh', '-c', 'sleep 3600']
+    

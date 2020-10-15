@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs1
+  labels:
+    image: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      image: nginx
+  template:
+    metadata:
+      labels:
+        image: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.17.4
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+    

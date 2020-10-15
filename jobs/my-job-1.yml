@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  manualSelector: true
+  selector:
+    matchLabels:
+      image: busybox
+  template:
+    metadata:
+      labels:
+        image: busybox
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: box1
+        image: busybox
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "ps -e"

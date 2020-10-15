@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs3
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+    - key: type
+      operator: In
+      values: [web, webserver]
+  template:
+    metadata:
+      labels:
+        type: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.17.4
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+  template:
+    metadata:
+      labels:
+        type: webserver
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80

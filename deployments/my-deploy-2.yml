@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy2
+  labels:
+    type: web
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      type: web
+  template:
+    metadata:
+      name: pod6
+      labels:
+        type: web
+    spec:
+      containers:
+      - name: frontend
+        image: pratik977/demo_app:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+      - name: db
+        image: redis:alpine
+        imagePullPolicy: IfNotPresent

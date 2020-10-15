@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy3
+  labels:
+    image: alpine
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      image: alpine
+  template:
+    metadata:
+      labels:
+        image: alpine
+    spec:
+      containers:
+      - name: alpine
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        args:
+        - -c
+        - "sleep 3600"
+      
